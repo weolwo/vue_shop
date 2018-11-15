@@ -2,13 +2,13 @@
   <div class="footer_guide">
     <span class="guide_item" @click="goTo('/home')" :class="{on: isCurrent('/home')}">
     <span class="item_icon">
-    <i class="iconfont icon-food"></i>
+    <i class="iconfont icon-homepage"></i>
     </span>
       <span>首页</span>
     </span>
     <span  class="guide_item" :class="{on: isCurrent('/search')}" @click="goTo('/search')">
       <span class="item_icon">
-        <i class="iconfont icon-search"></i>
+        <i class="iconfont icon-sousuo"></i>
       </span>
       <span>搜索</span>
     </span>
@@ -20,7 +20,7 @@
     </span>
     <span   class="guide_item" :class="{on: isCurrent('/profile')}" @click="goTo('/profile')">
       <span class="item_icon">
-        <i class="iconfont icon-user"></i>
+        <i class="iconfont icon-wode"></i>
       </span>
       <span>我的</span>
     </span>

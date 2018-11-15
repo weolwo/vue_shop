@@ -2,17 +2,25 @@
     <div>
       <section class="msite">
         <!--首页头部-->
-        <header class="msite_header">
+       <!-- <header class="header">
           <span class="header_search">
             <i class="iconfont icon-sousuo"></i>
           </span>
           <span class="header_title">
-            <span class="header_title_text ellipsis">昌平区北七家宏福科技园(337省道北)</span>
+            <span class="header_title_text ellipsis">马尼拉(337省道北)</span>
           </span>
           <span class="header_login">
             <span class="header_login_text">登录|注册</span>
           </span>
-        </header>
+        </header>-->
+        <HeaderTop title="马尼拉(337省道北)">
+          <span class="header_search" slot="search">
+            <i class="iconfont icon-sousuo"></i>
+          </span>
+          <span class="header_login" slot="login">
+            <span class="header_login_text">登录|注册</span>
+          </span>
+        </HeaderTop>
         <!--首页导航-->
         <nav class="msite_nav">
           <div class="swiper-container">
@@ -313,13 +321,31 @@
     </div>
 </template>
 <script>
-    export default {}
+  import HeaderTop from '../../components/HeaderTop/HeaderTop'
+  import Swiper from 'swiper'
+  import 'swiper/dist/css/swiper.min.css'
+    export default {
+      mounted (){
+        //创建一个人Swiper实例对象
+        new Swiper ('.swiper-container', {
+          loop: true, // 循环模式选项
+
+          // 如果需要分页器
+          pagination: {
+            el: '.swiper-pagination',
+          },
+        })
+      },
+      components:{
+        HeaderTop//映射成标签
+      }
+    }
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
   .msite  //首页
     width 100%
-    .msite_header
+    .header
       background-color #02a774
       position fixed
       z-index 100
