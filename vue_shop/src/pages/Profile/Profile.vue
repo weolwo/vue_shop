@@ -9,7 +9,8 @@
       </header>-->
       <HeaderTop title="我的"></HeaderTop>
       <section class="profile-number">
-        <a href="javascript:" class="profile-link">
+        <!--路由到登录界面-->
+        <router-link to="/login" class="profile-link">
           <div class="profile_image">
             <i class="iconfont icon-gerenyonghutouxiang2"></i>
           </div>
@@ -25,7 +26,8 @@
           <span class="arrow">
               <i class="iconfont icon-more"></i>
             </span>
-        </a>
+        </router-link>
+
       </section>
       <section class="profile_info_data border-1px">
         <ul class="info_data_list">
@@ -112,6 +114,7 @@
   @import "../../common/stylus/mixins.styl"
   .profile //我的
     width 100%
+    overflow hidden//解决向下滑动时,登录被挡
     .header
       background-color #02a774
       position fixed
