@@ -29,8 +29,10 @@
         <!--使用svg显示页面加载中提示界面-->
         <img src="./images/msite_back.svg" v-else/>
       </nav>
+
       <!--首页附近商家-->
       <div class="msite_shop_list">
+        <Notice :items="items"></Notice>
         <div class="shop_header">
           <i class="iconfont icon-dizhi"></i>
           <span class="shop_header_title">附近商家</span>
@@ -46,12 +48,19 @@
   import 'swiper/dist/css/swiper.min.css'
   import HeaderTop from '../../components/HeaderTop/HeaderTop'
   import ShopList from '../../components/ShopList/ShopList'
+  import Notice from '../../components/Notice/Notice'
 
   export default {
     data() {
       return {
         // 因为食品分类的图片信息都有一个baseImageUrl所以在data里定义
-        baseImageUrl: 'https://fuss10.elemecdn.com'
+        baseImageUrl: 'https://fuss10.elemecdn.com',
+        items:[
+          {name:"精品营养粥,8折优惠"},
+          {name:"今日特价:鱼香肉丝,酸菜鱼"},
+          {name:"本公司即日起为了回馈新老用户,冲100送50本公司即日起为了回馈新老用户,冲100送50"}
+        ]
+
       }
     },
     mounted() {
@@ -111,7 +120,8 @@
     },
     components: {
       HeaderTop,//映射成标签
-      ShopList
+      ShopList,
+      Notice//公告组件
     }
   }
 </script>
