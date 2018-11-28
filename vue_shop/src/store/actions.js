@@ -3,8 +3,8 @@
  * Action:通过操作mutation间接更新state的多个方法的对象
  */
 // 注意要引入api接口函数
-import {reqAddress, reqFoodCategorys, reqShops} from '../api'
-import {RECEVIE_ADDRESS, RECEVIE_CATEGORYS, RECEVIE_SHOPS} from './mutation -types'
+import {reqAddress, reqFoodCategorys, reqShops,reqUserInfo} from '../api'
+import {RECEVIE_ADDRESS, RECEVIE_CATEGORYS, RECEVIE_SHOPS, RECEVIE_USERINFO} from './mutation -types'
 
 export default {
   // 假设 getData() 和 getOtherData() 返回的是 Promise
@@ -13,7 +13,7 @@ export default {
     // 从state状态中获取到经纬度用来设置reqAddress的参数（看接口文档
     const geohash = state.latitude + "," + state.longitude
     //发送ajax请求
-    const result =await reqAddress(geohash);
+    const result = await reqAddress(geohash);
     //如果返回结果正确,就提交一个mutation
     if (result.code === 0) {
       const address = result.data;
@@ -24,7 +24,7 @@ export default {
   async getCategorys({state, commit}) {
 
     //发送ajax请求
-    const result =await reqFoodCategorys();
+    const result = await reqFoodCategorys();
     //如果返回结果正确,就提交一个mutation
     if (result.code === 0) {
       const categorys = result.data;
@@ -36,11 +36,26 @@ export default {
     // 从state状态中获取到经纬度用来设置reqAddress的参数（看接口文档
     const {longitude, latitude} = state;
     //发送ajax请求
-    const result =await reqShops(longitude, latitude);
+    const result = await reqShops(longitude, latitude);
     //如果返回结果正确,就提交一个mutation
     if (result.code === 0) {
       const shops = result.data;
       commit(RECEVIE_SHOPS, {shops});
+    }
+  },
+//同步记录用户信息,由于我们已经获取过了
+  recordUser({commit},userInfo) {
+    commit(RECEVIE_USERINFO, {userInfo});
+  },
+  //异步获取用户登录信息
+  async getUserInfo({commit}) {
+
+    //发送ajax请求
+    const result = await reqUserInfo();
+    //如果返回结果正确,就提交一个mutation
+    if (result.code === 0) {
+      const userInfo = result.data;
+      commit(RECEVIE_USERINFO, {userInfo});
     }
   },
 

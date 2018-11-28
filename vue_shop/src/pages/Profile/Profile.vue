@@ -10,17 +10,17 @@
       <HeaderTop title="我的"></HeaderTop>
       <section class="profile-number">
         <!--路由到登录界面-->
-        <router-link to="/login" class="profile-link">
+        <router-link :to="userInfo._id ? '/profile' :'/login'" class="profile-link">
           <div class="profile_image">
             <i class="iconfont icon-gerenyonghutouxiang2"></i>
           </div>
           <div class="user-info">
-            <p class="user-info-top">登录/注册</p>
+            <p class="user-info-top" v-if="!userInfo.phone">{{userInfo.name || '登录/注册'}}</p>
             <p>
                 <span class="user-icon">
                   <i class="iconfont icon-shouji1"></i>
                 </span>
-              <span class="icon-mobile-number">暂无绑定手机号</span>
+              <span class="icon-mobile-number">{{userInfo.phone || '暂无绑定手机号'}}</span>
             </p>
           </div>
           <span class="arrow">
@@ -76,7 +76,7 @@
               <i class="iconfont icon-VIP"></i>
             </span>
           <div class="my_order_div">
-            <span>硅谷外卖会员卡</span>
+            <span>会员权益</span>
             <span class="my_order_icon">
                 <i class="iconfont icon-more"></i>
               </span>
@@ -103,9 +103,14 @@
 
 <script>
   import HeaderTop from '../../components/HeaderTop/HeaderTop'
+  import {mapState} from 'vuex'
   export default {
     components:{
       HeaderTop//映射成标签
+    },
+    computed:{
+      //读取用户信息
+      ...mapState(['userInfo'])
     }
   }
 </script>
@@ -169,7 +174,7 @@
           border-radius 50%
           overflow hidden
           vertical-align top
-          .icon-person
+          .icon-gerenyonghutouxiang2
             background #e4e4e4
             font-size 62px
         .user-info
@@ -188,7 +193,7 @@
               margin-right 5px
               width 20px
               height 20px
-              .icon-mobile
+              .icon-shouji1
                 font-size 30px
                 vertical-align text-top
             .icon-mobile-number
@@ -258,13 +263,13 @@
           >.iconfont
             margin-left -10px
             font-size 30px
-          .icon-order-s
+          .icon-dingdan4
             color #02a774
-          .icon-jifen
+          .icon-huiyuantequanshengritequan
             color #ff5f3e
-          .icon-vip
+          .icon-VIP
             color #f90
-          .icon-fuwu
+          .icon-fuwuzhongxin
             color #02a774
         .my_order_div
           width 100%
@@ -279,7 +284,7 @@
           .my_order_icon
             width 10px
             height 10px
-            .icon-jiantou1
+            .icon-more
               color #bbb
               font-size 10px
 </style>

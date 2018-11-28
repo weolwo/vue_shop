@@ -6,9 +6,13 @@
           <span class="header_search" slot="search">
             <i class="iconfont icon-sousuo"></i>
           </span>
-        <span class="header_login" slot="login">
-            <span class="header_login_text">登录|注册</span>
-          </span>
+        <router-link class="header_login" slot="login" :to="userInfo._id ? '/userInfo':'/login'">
+            <span class="header_login_text" v-if="!userInfo._id">登录|注册</span>
+          <!--如果已经登录则显示一个icon-->
+           <span class="header_login_text" v-else>
+		         <i class="iconfont icon-gerenyonghutouxiang2"></i>
+	        </span>
+        </router-link>
       </HeaderTop>
       <!--首页导航-->
       <nav class="msite_nav">
@@ -60,7 +64,6 @@
           {name:"今日特价:鱼香肉丝,酸菜鱼"},
           {name:"本公司即日起为了回馈新老用户,冲100送50本公司即日起为了回馈新老用户,冲100送50"}
         ]
-
       }
     },
     mounted() {
@@ -71,7 +74,7 @@
 
     computed: {
       //通过mapState语法糖来读取获取到的异步数据
-      ...mapState(['address', 'categorys']),
+      ...mapState(['address', 'categorys','userInfo']),
       //由于页面需要的是一个二位数组格式的数据结构,而我们目前得到的数据是一个一维数组,所以我们需要将获取到的数据转换成二维数组
       categorysArr() {
         // 1.先从当前组件中得到所有食品分类的一维数组

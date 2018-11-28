@@ -19,10 +19,11 @@
       //console.log(result)
       //this.$store.dispatch('getAddress')// 1,通过this.$store.dispatch 方法触发调用Action
       this.getAddress();
+      this.getUserInfo()
     },
 
     methods:{
-      ...mapActions(['getAddress'])
+      ...mapActions(['getAddress','getUserInfo'])
     },
     components: {
       FooterGuide

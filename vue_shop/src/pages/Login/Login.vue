@@ -150,16 +150,18 @@
           this.interval = undefined;//非必要的
         }
 
-        if (result.code=== 0) {//如果成功
+        if (result.code === 0) {//如果成功
           //保存用户到state
-          const user=result.data;
+          const user = result.data;
+          //将user保存到vuex的state
+          this.$store.dispatch('recordUser', user)
           //跳转到首页
-          this.$router.replace('/home')//不需要返回之前的页面
+          this.$router.replace('/profile')//不需要返回之前的页面
         } else {//失败
-            //显示新的图片验证码
+          //显示新的图片验证码
           this.getCaptcha();
           //提示警告信息
-          const msg=result.msg;
+          const msg = result.msg;
           this.showAlert(msg);
         }
       },
