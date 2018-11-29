@@ -2,7 +2,7 @@
  * vuex 的 mutations 模块
  */
 
-import {RECEVIE_ADDRESS, RECEVIE_CATEGORYS, RECEVIE_SHOPS,RECEVIE_USERINFO} from './mutation -types'
+import {RECEVIE_ADDRESS, RECEVIE_CATEGORYS, RECEVIE_SHOPS,RECEVIE_USERINFO,RESET_USER_INFO} from './mutation -types'
 
 // 格式:[方法名](state,{param}){}
 export default {
@@ -18,5 +18,9 @@ export default {
   },
   [RECEVIE_USERINFO](state, {userInfo}) {
     state.userInfo = userInfo;
+  },
+  //重置用户信息
+  [RESET_USER_INFO](state) {
+    state.userInfo = {};
   },
 }

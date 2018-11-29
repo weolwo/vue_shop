@@ -97,14 +97,33 @@
           </div>
         </a>
       </section>
+      <!--退出登录-->
+      <section class="profile_my_order border-1px" >
+        <mt-button type="danger" @click="logout" style="width: 100%" v-if="userInfo._id">退出登录</mt-button>
+      </section>
     </section>
   </div>
 </template>
 
 <script>
   import HeaderTop from '../../components/HeaderTop/HeaderTop'
+  import { MessageBox,Toast  } from 'mint-ui';
   import {mapState} from 'vuex'
   export default {
+
+    methods:{
+      logout(){
+        MessageBox.confirm('确定退出登录吗?').then(
+          action => {
+            //请求退出
+            this.$store.dispatch('logout')
+            Toast('退出成功');
+        },
+          action => {
+            console.log("点击取消")
+          });
+      }
+    },
     components:{
       HeaderTop//映射成标签
     },

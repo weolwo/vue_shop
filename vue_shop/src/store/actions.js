@@ -3,8 +3,8 @@
  * Action:通过操作mutation间接更新state的多个方法的对象
  */
 // 注意要引入api接口函数
-import {reqAddress, reqFoodCategorys, reqShops,reqUserInfo} from '../api'
-import {RECEVIE_ADDRESS, RECEVIE_CATEGORYS, RECEVIE_SHOPS, RECEVIE_USERINFO} from './mutation -types'
+import {reqAddress, reqFoodCategorys, reqShops, reqUserInfo, reqLogout} from '../api'
+import {RECEVIE_ADDRESS, RECEVIE_CATEGORYS, RECEVIE_SHOPS, RECEVIE_USERINFO,RESET_USER_INFO} from './mutation -types'
 
 export default {
   // 假设 getData() 和 getOtherData() 返回的是 Promise
@@ -44,7 +44,7 @@ export default {
     }
   },
 //同步记录用户信息,由于我们已经获取过了
-  recordUser({commit},userInfo) {
+  recordUser({commit}, userInfo) {
     commit(RECEVIE_USERINFO, {userInfo});
   },
   //异步获取用户登录信息
@@ -58,5 +58,13 @@ export default {
       commit(RECEVIE_USERINFO, {userInfo});
     }
   },
-
+  //异步获取用户登录信息
+  async logout({commit}) {
+    //发送ajax请求
+    const result = await reqLogout();
+    //如果返回结果正确,就提交一个mutation
+    if (result.code === 0) {
+      commit(RESET_USER_INFO);
+    }
+  },
 }
