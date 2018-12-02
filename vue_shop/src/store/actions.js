@@ -3,8 +3,28 @@
  * Action:通过操作mutation间接更新state的多个方法的对象
  */
 // 注意要引入api接口函数
-import {reqAddress, reqFoodCategorys, reqShops, reqUserInfo, reqLogout} from '../api'
-import {RECEVIE_ADDRESS, RECEVIE_CATEGORYS, RECEVIE_SHOPS, RECEVIE_USERINFO,RESET_USER_INFO} from './mutation -types'
+import {
+  reqAddress,
+  reqFoodCategorys,
+  reqShops,
+  reqUserInfo,
+  reqLogout,
+  reqShopInfo,
+  reqShopGoods,
+  reqShopRatings
+} from '../api'
+import {
+  RECEVIE_ADDRESS,
+  RECEVIE_CATEGORYS,
+  RECEVIE_SHOPS,
+  RECEVIE_USERINFO,
+  RESET_USER_INFO,
+  RECEVIE_INFO,
+  RECEVIE_GOODS,
+  RECEVIE_RATINGS,
+  INCRIMENT_FOOD_COUNT,
+  DECRIMENT_FOOD_COUNT
+} from './mutation -types'
 
 export default {
   // 假设 getData() 和 getOtherData() 返回的是 Promise
@@ -65,6 +85,47 @@ export default {
     //如果返回结果正确,就提交一个mutation
     if (result.code === 0) {
       commit(RESET_USER_INFO);
+    }
+  },
+  //异步获取商家信息
+  async getShopInfo({commit}) {
+    //发送ajax请求
+    const result = await reqShopInfo();
+    //如果返回结果正确,就提交一个mutation
+    if (result.code === 0) {
+      const info = result.data;
+      commit(RECEVIE_INFO, {info});
+    }
+  },
+
+  //异步获取商品信息
+  async getShopGoods({commit}, callback) {
+    //发送ajax请求
+    const result = await reqShopGoods();
+    //如果返回结果正确,就提交一个mutation
+    if (result.code === 0) {
+      const goods = result.data;
+      commit(RECEVIE_GOODS, {goods});
+      // 数据更新了, 通知一下组件
+      callback && callback()//只有当有回调函数时才执行
+    }
+  },
+  //异步获取评价信息
+  async getShopRatings({commit}) {
+    //发送ajax请求
+    const result = await reqShopRatings();
+    //如果返回结果正确,就提交一个mutation
+    if (result.code === 0) {
+      const ratings = result.data;
+      commit(RECEVIE_RATINGS, {ratings});
+    }
+  },
+  //同步更新数据
+  updateFoodCount({commit}, {isAdd, food}) {
+    if (isAdd) {
+      commit(INCRIMENT_FOOD_COUNT, {food});
+    } else {
+      commit(DECRIMENT_FOOD_COUNT, {food});
     }
   },
 }
