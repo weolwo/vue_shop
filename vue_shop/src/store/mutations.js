@@ -12,7 +12,8 @@ import {
   RECEVIE_INFO,
   RECEVIE_GOODS,
   INCRIMENT_FOOD_COUNT,
-  DECRIMENT_FOOD_COUNT
+  DECRIMENT_FOOD_COUNT,
+  CLEAR_CART
 } from './mutation -types'
 import Vue from 'vue'
 // 格式:[方法名](state,{param}){}
@@ -65,5 +66,11 @@ export default {
       //将food从购物车中移除
       state.cartFoods.splice(state.cartFoods.indexOf(food),1)//获取到food在cartFoods中的索引
     }
+  },
+  [CLEAR_CART](state) {
+    //清楚food中的count
+      this.state.cartFoods.forEach(food=>food.count=0)
+    //清空购物车
+    this.state.cartFoods=[]
   },
 }

@@ -18,30 +18,34 @@
           </div>
         </div>
       </div>
-      <div class="shopcart-list" v-show="listShow">
-        <div class="list-header" v-show="listShow">
-          <h1 class="title">购物车</h1>
-          <span class="empty">清空</span>
+      <transition name="move">
+        <div class="shopcart-list" v-show="listShow">
+          <div class="list-header" v-show="listShow">
+            <h1 class="title">购物车</h1>
+            <span class="empty" @click="clearCart">清空</span>
+          </div>
+          <div class="list-content" v-show="listShow" @click="toggleShow">
+            <ul>
+              <li class="food" v-for="(food,index) in cartFoods" :key="index">
+                <span class="name">{{food.name}}</span>
+                <div class="price"><span>￥{{food.price}}</span></div>
+                <div class="cartcontrol-wrapper">
+                  <CartControl :food="food"/>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="list-content" v-show="listShow" @click="toggleShow">
-          <ul>
-            <li class="food" v-for="(food,index) in cartFoods" :key="index">
-              <span class="name">{{food.name}}</span>
-              <div class="price"><span>￥{{food.price}}</span></div>
-              <div class="cartcontrol-wrapper">
-                <CartControl :food="food"/>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+      </transition>
     </div>
     <div class="list-mask" v-show="listShow" @click="toggleShow"></div>
   </div>
 </template>
 <script>
   import {mapState, mapGetters} from 'vuex'
+  import BScroll from 'better-scroll'
   import CartControl from '../CartControl/CartControl'
+  import { MessageBox } from 'mint-ui'
 
   export default {
 
@@ -76,6 +80,21 @@
           this.isShow=false
           return false
         }
+        //实现下方购物车欸荣滚动,
+       if (this.isShow){
+         this.$nextTick(()=> {
+           // DOM 更新了
+           // 实现BScroll的实例是一个单例,不然会创建多个BScroll,导致原生的点击事件收到影响,数量出现缭乱
+            if (!this.scroll){
+              this.scroll = new BScroll('.list-content',{
+                scrollY: true,
+                click: true
+              })
+            }else {
+              this.scroll.refresh()//让滚动条刷新一下: 重新统计内容的高度
+            }
+         })
+       }
         return  this.isShow
       }
     },
@@ -86,6 +105,13 @@
         if (this.totalCount>0){
           this.isShow = !this.isShow
         }
+      },
+      //清空购物车
+      clearCart(){
+        MessageBox.confirm('确定要清空购物车吗?').then(action => {
+          //派发一个事件更新购物车数据
+          this.$store.dispatch('clearCart')
+        },()=>{});
       }
     },
     components: {
@@ -202,11 +228,11 @@
       top 0
       z-index -1
       width 100%
-      transform translateY(-100%)
+      transform translateY(-100%)/*控制下方的购物车显示*/
       &.move-enter-active, &.move-leave-active
         transition transform .3s
       &.move-enter, &.move-leave-to
-        transform translateY(0)
+        transform translateY(0)/*控制下方的购物车隐藏*/
       .list-header
         height 40px
         line-height 40px

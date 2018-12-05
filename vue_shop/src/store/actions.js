@@ -23,7 +23,8 @@ import {
   RECEVIE_GOODS,
   RECEVIE_RATINGS,
   INCRIMENT_FOOD_COUNT,
-  DECRIMENT_FOOD_COUNT
+  DECRIMENT_FOOD_COUNT,
+  CLEAR_CART
 } from './mutation -types'
 
 export default {
@@ -127,5 +128,9 @@ export default {
     } else {
       commit(DECRIMENT_FOOD_COUNT, {food});
     }
+  },
+  //同步更新购物车数据
+  clearCart({commit}) {
+    commit(CLEAR_CART);
   },
 }
