@@ -51,6 +51,8 @@ export default {
    if (!food.count){//第一次增加
      //food.count=1// 这样新增的属性没有数据绑定
      Vue.set(food,'count',1)
+     //将food添加到购物车中
+     state.cartFoods.push(food);
    } else {
      food.count++
    }
@@ -58,6 +60,10 @@ export default {
   [DECRIMENT_FOOD_COUNT](state,{food}) {
     if (food.count){ // 只有有值才去减
       food.count--
+    }
+    if (food.count===0){
+      //将food从购物车中移除
+      state.cartFoods.splice(state.cartFoods.indexOf(food),1)//获取到food在cartFoods中的索引
     }
   },
 }

@@ -11,5 +11,6 @@ export default {
   userInfo:{},//用户信息
   info:{},//商家信息
   goods:[],//商品信息
-  ratings:[]//评价信息
+  ratings:[],//评价信息
+  cartFoods:[]//底部购物车信息
 }
