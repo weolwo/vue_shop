@@ -112,13 +112,14 @@ export default {
     }
   },
   //异步获取评价信息
-  async getShopRatings({commit}) {
+  async getShopRatings({commit},callback) {
     //发送ajax请求
     const result = await reqShopRatings();
     //如果返回结果正确,就提交一个mutation
     if (result.code === 0) {
       const ratings = result.data;
       commit(RECEVIE_RATINGS, {ratings});
+      callback && callback()//只有当有回调函数时才执行
     }
   },
   //同步更新数据
