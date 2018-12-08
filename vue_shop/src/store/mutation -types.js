@@ -16,3 +16,4 @@ export const INCRIMENT_FOOD_COUNT="incriment_food_count"  //增加数量
 export const DECRIMENT_FOOD_COUNT="decriment_food_count"  //减少数量
 
 export const CLEAR_CART="clear_cart"  //清空购物车
+export const SEARCH_SHOP_LIST="search_shop_list"  //搜素商家列表

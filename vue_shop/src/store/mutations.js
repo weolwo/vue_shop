@@ -13,7 +13,8 @@ import {
   RECEVIE_GOODS,
   INCRIMENT_FOOD_COUNT,
   DECRIMENT_FOOD_COUNT,
-  CLEAR_CART
+  CLEAR_CART,
+  SEARCH_SHOP_LIST
 } from './mutation -types'
 import Vue from 'vue'
 // 格式:[方法名](state,{param}){}
@@ -72,5 +73,9 @@ export default {
       this.state.cartFoods.forEach(food=>food.count=0)
     //清空购物车
     this.state.cartFoods=[]
+  },
+
+  [SEARCH_SHOP_LIST](state,{searchShops}) {
+    state.searchShops = searchShops;
   },
 }

@@ -24,8 +24,11 @@ import {
   RECEVIE_RATINGS,
   INCRIMENT_FOOD_COUNT,
   DECRIMENT_FOOD_COUNT,
-  CLEAR_CART
+  CLEAR_CART,
+  SEARCH_SHOP_LIST
 } from './mutation -types'
+import {reqSearchShop} from "../../../gshop-client/src/api";
+import {RECEIVE_SEARCH_SHOPS} from "../../../gshop-client/src/store/mutation-types";
 
 export default {
   // 假设 getData() 和 getOtherData() 返回的是 Promise
@@ -133,5 +136,16 @@ export default {
   //同步更新购物车数据
   clearCart({commit}) {
     commit(CLEAR_CART);
+  },
+
+  // 异步获取商家商品列表
+  async searchShops({commit, state}, keyword) {
+
+    const geohash = state.latitude + ',' + state.longitude
+    const result = await reqSearchShop(geohash, keyword)
+    if (result.code === 0) {
+      const searchShops = result.data
+      commit(SEARCH_SHOP_LIST, {searchShops})
+    }
   },
 }

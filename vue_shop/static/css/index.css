@@ -345,11 +345,11 @@
   margin-right: 0;
 }
 #app .content >div >section.msite .msite_shop_list .shop_container .shop_list .shop_li >a .shop_right .shop_rating_order .shop_rating_order_left .star.star-48 .star-item.on {
-  background-image: url("../images/stars/star48_on@2x.png");
+  background-image: url("../images/star48_on@2x.png");
 }
 @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
   #app .content >div >section.msite .msite_shop_list .shop_container .shop_list .shop_li >a .shop_right .shop_rating_order .shop_rating_order_left .star.star-48 .star-item.on {
-    background-image: url("../images/stars/star48_on@3x.png");
+    background-image: url("../images/star48_on@3x.png");
   }
 }
 #app .content >div >section.msite .msite_shop_list .shop_container .shop_list .shop_li >a .shop_right .shop_rating_order .shop_rating_order_left .star.star-48 .star-item.half {

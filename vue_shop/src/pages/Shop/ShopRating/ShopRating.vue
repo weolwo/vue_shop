@@ -56,11 +56,11 @@
               </div>
               <p class="text">{{rating.text}}</p>
               <div class="recommend">
-                <span class="iconfont" :class="rating.rateType===0?'icon-thumb_up':'icon-thumb_down'"></span>
+                <span class="iconfont" :class="rating.rateType===0?'icon-haoping':'icon-chaping'"></span>
                 <span class="item" v-if="rating.recommend.length>0"
                       v-for="(item,index) in rating.recommend">{{item}}</span>
               </div>
-              <div class="time">{{rating.rateTime}}</div>
+              <div class="time">{{rating.rateTime | date-format}}</div>
             </div>
           </li>
         </ul>
@@ -284,13 +284,13 @@
           .recommend
             line-height: 16px
             font-size: 0
-            .icon-thumb_up, .icon-thumb_down, .item
+            .icon-haoping, .icon-chaping, .item
               display: inline-block
               margin: 0 8px 4px 0
               font-size: 9px
-            .icon-thumb_up
+            .icon-haoping
               color: $yellow
-            .icon-thumb_down
+            .icon-chaping
               color: rgb(147, 153, 159)
 
             .item
